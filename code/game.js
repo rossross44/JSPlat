@@ -1,7 +1,8 @@
 // Map each class of actor to a character
 var actorChars = {
   "@": Player,
-  "o": Coin // A coin will wobble up and down
+  "o": Coin, // A coin will wobble up and down
+  "v": Vex
 };
 
 function Level(plan) {
@@ -85,6 +86,14 @@ function Coin(pos) {
   this.wobble = Math.random() * Math.PI * 2;
 }
 Coin.prototype.type = "coin";
+
+function Vex(pos) {
+  this.basePos = this.pos = pos.plus(new Vector(0.2, 0.1));
+  this.size = new Vector(0.6, 0.6);
+  // Make it go back and forth in a sine wave.
+  this.slide = Math.random() * Math.PI * 2;
+}
+Vex.prototype.type = "vex";
 
 // Helper function to easily create an element of a type provided
 // and assign it a class.
@@ -249,6 +258,14 @@ Coin.prototype.act = function(step) {
   this.pos = this.basePos.plus(new Vector(0, wobblePos));
 };
 
+var slideSpeed = 10, slideDist = 1.07;
+
+Vex.prototype.act = function(step) {
+  this.slide += step * slideSpeed;
+  var slidePos = Math.sin(this.slide) * slideDist;
+  this.pos = this.basePos.plus(new Vector(0, slidePos));
+};
+
 var maxStep = 0.05;
 
 var playerXSpeed = 7;
@@ -308,6 +325,11 @@ Player.prototype.act = function(step, level, keys) {
 
 Level.prototype.playerTouched = function(type, actor) {
   if (type == "coin") {
+    this.actors = this.actors.filter(function(other) {
+      return other != actor;
+    });
+  }
+  if (type == "vex") {
     this.actors = this.actors.filter(function(other) {
       return other != actor;
     });
