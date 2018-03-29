@@ -10,6 +10,8 @@
 
 .actor  { position: absolute;  }
 .player { background: rgb(64, 64, 64); }
+.coin {background: rgb(241, 229, 89);}
+.vex { background: rgb(240, 63, 23)}
 
 .game {
   overflow: hidden;
