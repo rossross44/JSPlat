@@ -10,8 +10,9 @@
 
 .actor  { position: absolute;  }
 .player { background: rgb(64, 64, 64); }
-.coin {background: rgb(241, 229, 89);}
+.coin {background: rgb(255, 255, 255);}
 .elle { background: rgb(240, 63, 23)}
+.hat { background: rgb(255, 0, 102)}
 
 .game {
   overflow: hidden;
@@ -24,5 +25,5 @@
   background: rgb(160, 64, 64);
 }
 .won .player {
-  box-shadow: -4px -7px 8px white, 4px -7px 8px white;
+  box-shadow: -4px -7px 8px blue, 4px -7px 8px blue;
 }
